@@ -12,3 +12,9 @@ A packet capture coursework based on sharpcap development
 > - 需要引入 **SharpPcap** 的引用
 
 ![image-20230210124029666](https://raw.githubusercontent.com/Shadow-Kylin/PicGoBed/main/images/202302101240766.png)
+
+功能介绍：
+1. 获取设备网卡列表
+2. 设置抓包过滤规则
+3. 可设置混杂模式
+4. 抓包数据保存
