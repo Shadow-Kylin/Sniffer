@@ -11,6 +11,8 @@ using SharpPcap;
 using PacketDotNet;
 using System.Threading;
 using System.Text.RegularExpressions;
+using SharpPcap.WinPcap;
+using SharpPcap.LibPcap;
 
 namespace Sniffer_winform
 {
@@ -27,15 +29,21 @@ namespace Sniffer_winform
         private Queue<PacketAnalyze> packetAnalyzes = new Queue<PacketAnalyze>();
         public Form1()
         {
-            InitializeComponent();
             //获取网卡列表
-            foreach (var device in SharpPcap.LibPcap.LibPcapLiveDeviceList.Instance)
+            var devices = LibPcapLiveDeviceList.Instance;
+            if (devices.Count < 1)
+                MessageBox.Show("此设备上没有网卡");
+            else
             {
-                NICType.Items.Add(device.Interface.FriendlyName);
+                InitializeComponent();
+                foreach (var device in devices)
+                {
+                    NICType.Items.Add(device.Interface.FriendlyName);
+                }
+                //默认选择第一个
+                NICType.SelectedIndex = 0;
+                InitializeListView();
             }
-            //默认选择第一个
-            NICType.SelectedIndex = 0;
-            InitializeListView();
         }
 
         private void InitializeListView()
